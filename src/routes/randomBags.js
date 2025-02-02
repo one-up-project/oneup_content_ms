@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models/db");
 
-// Obtener todas las random bags
+
 router.post("/randomBags", async (req, res) => {
   try {
     const { store_id, description, total_price, discount_price, pick_up_time, available } = req.body;
 
-    // Validar que store_id esté presente
+
     if (!store_id) {
       return res.status(400).json({ error: "store_id es requerido" });
     }

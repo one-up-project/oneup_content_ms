@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
-require('dotenv').config(); // Cargar variables de entorno
+require('dotenv').config();
 
-// Configuración de la conexión a PostgreSQL
+//conexión a Postgresql
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
@@ -10,7 +10,7 @@ const pool = new Pool({
   port: 5432
 });
 
-// Exportar el método para ejecutar consultas
+// consultas
 module.exports = {
   query: (text, params) => pool.query(text, params),
 };
