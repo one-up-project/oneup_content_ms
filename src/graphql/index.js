@@ -1,4 +1,3 @@
-// src/graphql/index.js
 const { gql } = require('apollo-server-express');
 const db = require('../models/db');
 
@@ -45,6 +44,7 @@ const resolvers = {
   },
   Mutation: {
     createRandomBag: async (_, { input }) => {
+      console.log('Datos recibidos:', input);
       const {
         store_id,
         description,
