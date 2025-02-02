@@ -1,41 +1,14 @@
-require('dotenv').config(); // Cargar variables de entorno
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const db = require('./models/db');
-const { typeDefs, resolvers } = require('./graphql/index'); // Importa typeDefs y resolvers por separado
+const express = require("express");
+const cors = require("cors");
+const randomBagsRouter = require("./routes/randomBags");
 
 const app = express();
-const port = process.env.PORT || 5000;
+app.use(cors());
 
-// Middleware para parsear JSON
 app.use(express.json());
 
-// Configurar Apollo Server
-const server = new ApolloServer({
-  typeDefs, // Pasa typeDefs como una cadena de texto (string)
-  resolvers, // Pasa los resolvers
-  context: { db }, // Pasa la conexión a la base de datos al contexto
+app.use("/api/store", randomBagsRouter);
+
+app.listen(5000, () => {
+  console.log("Backend corriendo en http://localhost:5000");
 });
-
-// Función asíncrona para iniciar el servidor
-async function startServer() {
-  // Iniciar Apollo Server
-  await server.start();
-
-  // Aplicar middleware de Apollo Server a Express
-  server.applyMiddleware({ app });
-
-  // Ruta de prueba
-  app.get('/', (req, res) => {
-    res.send('¡Backend con Node.js y PostgreSQL!');
-  });
-
-  // Iniciar servidor
-  app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
-    console.log(`GraphQL en http://localhost:${port}${server.graphqlPath}`);
-  });
-}
-
-// Llamar a la función para iniciar el servidor
-startServer();
