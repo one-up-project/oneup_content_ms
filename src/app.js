@@ -5,7 +5,7 @@ const db = require('./models/db');
 const { typeDefs, resolvers } = require('./graphql/index'); // Importa typeDefs y resolvers por separado
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 // Middleware para parsear JSON
 app.use(express.json());
