@@ -23,7 +23,7 @@ router.post("/randomBags", async (req, res) => {
     console.log("Datos obtenidos:", result.rows); // Log para depuración
     res.json(result.rows[0]);
   } catch (err) {
-    if (err.code === '23505') { // Código de error de PostgreSQL para violación de restricción única
+    if (err.code === '23505') { 
       res.status(400).json({ error: "El store_id ya existe" });
     } else {
       res.status(500).json({ error: err.message });
