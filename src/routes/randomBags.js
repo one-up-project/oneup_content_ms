@@ -89,6 +89,19 @@ router.get("/randomBags", async (req, res) => {
   }
 });
 
+router.get("/randomBags/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await db.query(
+      "SELECT * FROM random_bag where random_bag_id = $1 ",
+      [id]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.delete("/randomBags/:random_bag_id", async (req, res) => {
   try {
     const { random_bag_id } = req.params;
