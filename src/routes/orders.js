@@ -27,4 +27,17 @@ router.get("/orders/get-orders-by-user/:id", async (req, res) => {
   }
 });
 
+// router.get("/orders/update-order-status/:id", async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const result = await db.query(
+//       "UPDATE orders SET current_status = 'payed' WHERE order_id = $1",
+//       [id]
+//     );
+//     res.json(result.rows);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
 module.exports = router;
