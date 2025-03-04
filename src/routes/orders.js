@@ -27,17 +27,20 @@ router.get("/orders/get-orders-by-user/:id", async (req, res) => {
   }
 });
 
-// router.get("/orders/update-order-status/:id", async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const result = await db.query(
-//       "UPDATE orders SET current_status = 'payed' WHERE order_id = $1",
-//       [id]
-//     );
-//     res.json(result.rows);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
+router.post("/orders/update-order-status", async (req, res) => {
+  const { order_id, status } = req.body;
+  if (status == null || status == "null") {
+    status = "Rejected";
+  }
+  try {
+    const result = await db.query(
+      "UPDATE orders SET current_status = $1 WHERE order_id = $2",
+      [status, order_id]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;
