@@ -7,7 +7,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Permite solicitudes desde este origen
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Permite los métodos HTTP necesarios
+    credentials: true, // Permite el envío de cookies y encabezados de autorización
+  })
+);
 
 app.use(express.json());
 
